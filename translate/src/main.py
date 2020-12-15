@@ -1,7 +1,7 @@
 # by ErikHorus1249
 # pip3 install googletrans==3.1.0a0
 # import GG translate API
-#https://www.youtube.com/watch?v=u4QmAIoo4i0
+
 from googletrans import Translator 
 import httpcore
 import os
@@ -39,7 +39,7 @@ def showLogo():
     print(bcolors.FAIL+logo+bcolors.ENDC)
 
 if __name__ == "__main__":
-    showLogo()
+    # showLogo()
     while(True):
         print(bcolors.OKBLUE+'='*37+'\nEn -> Vi :'+bcolors.ENDC)
         start_time = time.time()
