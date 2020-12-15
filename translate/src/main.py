@@ -1,9 +1,11 @@
 # by ErikHorus1249
 # pip3 install googletrans==3.1.0a0
 # import GG translate API
+#https://www.youtube.com/watch?v=u4QmAIoo4i0
 from googletrans import Translator 
 import httpcore
 import os
+import time
 # thuc hien dich
 
 # mau cho text
@@ -31,7 +33,8 @@ def getTextSRC():
 
 def showLogo():
     cwd = os.getcwd()  # Get the current working directory (cwd)
-    f = open(cwd+"/logo.txt","r")
+    #f = open(cwd+"/logo.txt","r")
+    f = open("/home/erik/Documents/scripts/translate/src/logo.txt","r")
     logo = "".join(f.readlines())
     print(bcolors.FAIL+logo+bcolors.ENDC)
 
@@ -39,8 +42,10 @@ if __name__ == "__main__":
     showLogo()
     while(True):
         print(bcolors.OKBLUE+'='*37+'\nEn -> Vi :'+bcolors.ENDC)
+        start_time = time.time()
         text_src = getTextSRC()
         if text_src.strip()=='e' or text_src.strip()=='exit':
             break
         print(bcolors.OKBLUE+'='*37+bcolors.ENDC)
         print(bcolors.OKCYAN+trans(text_src)+bcolors.ENDC)
+        print("Time execution : %s s" % round(time.time() - start_time,2)+bcolors.ENDC)
