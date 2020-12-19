@@ -1,11 +1,12 @@
 # by ErikHorus1249
 # pip3 install googletrans==3.1.0a0
 # import GG translate API
-
+import googletrans
 from googletrans import Translator 
 import httpcore
 import os
 import time
+import json
 # thuc hien dich
 
 # mau cho text
@@ -20,10 +21,21 @@ class bcolors:
     BOLD = '\033[1m'
     UNDERLINE = '\033[4m'
 
-def trans(text_src):
+def get_languages():
+    # print(googletrans.LANGUAGES)
+    languages = googletrans.LANGUAGES
+    for lang in languages:
+        print('[+] '+lang+': '+languages[lang])
+    src=input("CHOOSE SRC Language :").strip()
+    dst=input("CHOOSE DST Language :").strip()
+    return [src,dst]
+
+def trans(text_src,languages):
+    # print(googletrans.LANGUAGES)
     translator = Translator()
+    print(languages[1])
     try :
-        result = translator.translate(text_src, src='en', dest='vi')
+        result = translator.translate(text_src, src=languages[0], dest=languages[1])
         return result.text
     except httpcore._exceptions.ConnectError:
         return bcolors.WARNING + '+ Checking your network cables, modem, and routers\n+ Reconnecting to your wireless network' + bcolors.ENDC             
@@ -40,12 +52,13 @@ def showLogo():
 
 if __name__ == "__main__":
     # showLogo()
+    
     while(True):
-        print(bcolors.OKBLUE+'='*37+'\nEn -> Vi :'+bcolors.ENDC)
+        # print(bcolors.OKBLUE+'='*37+'\nEn -> Vi :'+bcolors.ENDC)
         start_time = time.time()
         text_src = getTextSRC()
         if text_src.strip()=='e' or text_src.strip()=='exit':
             break
         print(bcolors.OKBLUE+'='*37+bcolors.ENDC)
-        print(bcolors.OKCYAN+trans(text_src)+bcolors.ENDC)
+        print(bcolors.OKCYAN+trans(text_src,get_languages())+bcolors.ENDC)
         print("Time execution : %s s" % round(time.time() - start_time,2)+bcolors.ENDC)
