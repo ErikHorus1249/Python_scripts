@@ -30,12 +30,12 @@ def get_languages():
     dst=input("CHOOSE DST Language :").strip()
     return [src,dst]
 
-def trans(text_src,languages):
+def trans(text_src):
     # print(googletrans.LANGUAGES)
     translator = Translator()
-    print(languages[1])
+    # print(languages[1])
     try :
-        result = translator.translate(text_src, src=languages[0], dest=languages[1])
+        result = translator.translate(text_src, src='en', dest='vi')
         return result.text
     except httpcore._exceptions.ConnectError:
         return bcolors.WARNING + '+ Checking your network cables, modem, and routers\n+ Reconnecting to your wireless network' + bcolors.ENDC             
@@ -55,10 +55,17 @@ if __name__ == "__main__":
     
     while(True):
         # print(bcolors.OKBLUE+'='*37+'\nEn -> Vi :'+bcolors.ENDC)
-        start_time = time.time()
-        text_src = getTextSRC()
-        if text_src.strip()=='e' or text_src.strip()=='exit':
-            break
-        print(bcolors.OKBLUE+'='*37+bcolors.ENDC)
-        print(bcolors.OKCYAN+trans(text_src,get_languages())+bcolors.ENDC)
-        print("Time execution : %s s" % round(time.time() - start_time,2)+bcolors.ENDC)
+        try:
+            start_time = time.time()
+            print("Eng -----> Vie")
+            text_src = getTextSRC()
+            if text_src.strip()=='e' or text_src.strip()=='exit':
+                break
+            print(bcolors.OKBLUE+'='*50+bcolors.ENDC)
+            print(bcolors.OKCYAN+trans(text_src)+bcolors.ENDC)
+            print("Time execution : %s s" % round(time.time() - start_time,2)+bcolors.ENDC)
+        except KeyboardInterrupt:
+            print("press control-c again to quit")
+            break 
+
+        
