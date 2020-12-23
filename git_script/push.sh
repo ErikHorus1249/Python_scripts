@@ -9,8 +9,10 @@ read mess
 
 if [ -z "$mess" ];
 	then
+		echo -e "${GR}[+] Successfully added content${NC}"
         	echo -e "${GR}[+] Create a new commit containing the current contents with the default message : up ${NC}"
 		git add . && git commit -m $mess -q && git push -q
+		echo -e "${GR}[+] Successfully pushed${NC}"
 	else
         	echo -e "${GR}[+] Create a new commit containing the current contents with the message : $mess ${NC}"
 		git add . && git commit -m $mess -q && git push -q
