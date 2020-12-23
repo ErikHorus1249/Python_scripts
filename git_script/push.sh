@@ -16,5 +16,5 @@ if [ -z "$mess" ];
 		git add . && git commit -m $mess -q && git push -q
     fi
 
-echo -e "${GR}DONE!${NC}"
+echo -e "${GR}[+] DONE!${NC}"
 #Reference: https://ryanstutorials.net/bash-scripting-tutorial/bash-loops.php
