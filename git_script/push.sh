@@ -10,10 +10,11 @@ read mess
 if [ -z "$mess" ];
 	then
         	echo -e "${GR}[+] Create a new commit containing the current contents with the default message : up ${NC}"
-		git add . && git commit -m $mess --branch && git push -q
+		git add . && git commit -m $mess -q && git push -q
 	else
         	echo -e "${GR}[+] Create a new commit containing the current contents with the message : $mess ${NC}"
-		git add . && git commit -m $mess --branch && git push -q
+		git add . && git commit -m $mess -q && git push -q
     fi
 
+echo -e "${GR}DONE!${NC}"
 #Reference: https://ryanstutorials.net/bash-scripting-tutorial/bash-loops.php
