@@ -12,19 +12,19 @@ read mess
 if [ -z "$mess" ];
 	then
 		git add .
-		echo -e "${GR}[+] $now: Successfully added content${NC}"
+		echo -e "${GR}[+] $(date +"%T"): Successfully added content${NC}"
 		git commit -m $mess -q
-        	echo -e "${GR}[+] $now: Create a new commit containing the current contents with the default message : up ${NC}"
+        	echo -e "${GR}[+] $(date +"%T"): Create a new commit containing the current contents with the default message : up ${NC}"
 		git push -q
-		echo -e "${GR}[+] $now: Successfully pushed${NC}"
+		echo -e "${GR}[+] $(date +"%T"): Successfully pushed${NC}"
 	else
 		git add .
-                echo -e "${GR}[+] $now: Successfully added content${NC}"
+                echo -e "${GR}[+] $(date +"%T"): Successfully added content${NC}"
                 git commit -m $mess -q
-                echo -e "${GR}[+] $now: Create a new commit containing the current contents with the default message : up ${NC}"
+                echo -e "${GR}[+] $(date +"%T"): Create a new commit containing the current contents with the default message : up ${NC}"
                 git push -q
-                echo -e "${GR}[+] $now: Successfully pushed${NC}"
+                echo -e "${GR}[+] $(date +"%T"): Successfully pushed${NC}"
     fi
 
-echo -e "${GR}[+] $now: DONE!${NC}"
+echo -e "${GR}[+] $(date +"%T"): DONE!${NC}"
 #Reference: https://ryanstutorials.net/bash-scripting-tutorial/bash-loops.php
