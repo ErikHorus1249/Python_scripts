@@ -4,4 +4,4 @@ echo Message ?
 
 read mess
 
-git add . && git commit -m $mess && git push
+git add . && git commit -m $mess --branch && git push
