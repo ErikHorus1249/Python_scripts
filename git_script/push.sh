@@ -14,8 +14,10 @@ if [ -z "$mess" ];
 		git add . && git commit -m $mess -q && git push -q
 		echo -e "${GR}[+] Successfully pushed${NC}"
 	else
+		echo -e "${GR}[+] Successfully added content${NC}"
         	echo -e "${GR}[+] Create a new commit containing the current contents with the message : $mess ${NC}"
 		git add . && git commit -m $mess -q && git push -q
+		echo -e "${GR}[+] Successfully pushed${NC}"
     fi
 
 echo -e "${GR}[+] DONE!${NC}"
