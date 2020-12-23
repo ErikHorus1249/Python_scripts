@@ -9,7 +9,7 @@ read mess
 
 if [ -z "$mess" ];
 	then
-        	echo -e "${GR}[+] Create a new commit containing the current contents with the default message : up"
+        	echo -e "${GR}[+] Create a new commit containing the current contents with the default message : up ${NC}"
 		git add . && git commit -m $mess --branch && git push
 	else
         	echo -e "${GR}[+] Create a new commit containing the current contents with the message : $mess ${NC}"
