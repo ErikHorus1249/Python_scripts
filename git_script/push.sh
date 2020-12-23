@@ -5,8 +5,15 @@ NC='\033[0m' # No Color
 
 # ask massage
 echo "[+] Message ?"
-
 read mess
 
-echo -e "${GR}[+] Create a new commit containing the current contents with the message : $mess ${NC}" 
-git add . && git commit -m $mess --branch && git push
+if [ -z "$mess" ];
+	then
+        	echo -e "${GR}[+] Create a new commit containing the current contents with the default message : up"
+		git add . && git commit -m $mess --branch && git push
+	else
+        	echo -e "${GR}[+] Create a new commit containing the current contents with the message : $mess ${NC}"
+		git add . && git commit -m $mess --branch && git push
+    fi
+
+#Reference: https://ryanstutorials.net/bash-scripting-tutorial/bash-loops.php
