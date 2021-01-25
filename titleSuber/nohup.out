@@ -1,0 +1,11 @@
+[ALSOFT] (EE) Failed to set real-time priority for thread: Operation not permitted (1)
+error: : cannot open
+error: : cannot open
+error: : cannot open
+Invalid return value 0 for stream protocol
+Invalid return value 0 for stream protocol
+[ALSOFT] (EE) Failed to set real-time priority for thread: Operation not permitted (1)
+[ALSOFT] (EE) Failed to set real-time priority for thread: Operation not permitted (1)
+[ALSOFT] (EE) Failed to set real-time priority for thread: Operation not permitted (1)
+[ALSOFT] (EE) Failed to set real-time priority for thread: Operation not permitted (1)
+QCoreApplication::postEvent: Unexpected null receiver
