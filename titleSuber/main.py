@@ -11,7 +11,7 @@ fw = open("result.srt","w")
 #f get raw text
 raw = f.readline()
 
-store = []
+# class for nonsub data
 class sub:
     def __init__(self, pos, content):
         self.pos = pos
@@ -23,15 +23,16 @@ class sub:
     def get_pos(self):
         return self.pos
 
-
+# list for storing data
 subtitles = []
 result_subtitles = []
 
+# translate function
 def translate(title_content):
     translator = Translator()
     return translator.translate(title_content, src='en', dest='vi')
 
-
+# function for validating and make subtitle
 def make_vi_sub(subtitle):
     pattern ='(\d{2}:\d{2}:\d{2},\d{3}) --> (\d{2}:\d{2}:\d{2},\d{3})'
     numPattern = '\d+'
@@ -50,16 +51,16 @@ def make_vi_sub(subtitle):
     else:
         return (subtitle.get_pos(),"\n")
 
-
-        
-
+# get data from file 
 for num, line in enumerate(f,1):
     sub1 = sub(num,line)
     subtitles.append(sub1)
 
+# function for sorting
 def myFunc(e):
   return e['pos']
 
+# running function
 def run():
     num_procs = 64 # the number of threads handled
     pool = Pool(processes=num_procs)
@@ -72,8 +73,7 @@ def run():
     for line in result_subtitles:
         fw.write(line["content"])
 
-
-
+# main
 if __name__ == '__main__':
     start_time = time.time()
     run()
