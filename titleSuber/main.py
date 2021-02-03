@@ -4,6 +4,7 @@ import time
 import translators as ts 
 from multiprocessing import Pool
 from googletrans import Translator
+import pydeepl
 
 f = open("test2.srt","r")
 fw = open("result.srt","w")
@@ -44,8 +45,9 @@ def make_vi_sub(subtitle):
         else :
             content = re.sub("\\n"," ",content)
             try :
-                final_sub = ts.bing(content , from_language='en', to_language='vi')
-                return (subtitle.get_pos(),final_sub+"\n"+content+"\n")
+                final_sub = pydeepl.translate(content, "vi", from_lang="en")
+                # final_sub = ts.bing(content , from_language='en', to_language='vi')
+                return (subtitle.get_pos(),final_sub+"\n")
             except :
                 return (subtitle.get_pos(),content)     
     else:
