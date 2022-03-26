@@ -1,19 +1,25 @@
 
 import re
 import time 
-import translators as ts 
 from multiprocessing import Pool
 from googletrans import Translator
 import pydeepl
 
-f = open("test2.srt","r")
-fw = open("result.srt","w")
+f = open("The.Kings_.Man_.2021.1080p.WEB-DL.DDP5_.1.Atmos_.H.264-EVO.srt","r", encoding='utf-8')
+# with open(file=, encoding='utf8') as f:
+fw = open("result.srt","w", encoding='utf-8')
 
 #f get raw text
 raw = f.readline()
 
+TIME_PATTERN ='(\d{2}:\d{2}:\d{2},\d{3}) --> (\d{2}:\d{2}:\d{2},\d{3})'
+NUMBER_PATTERN = '\d+'
+# list for storing data
+SUBTITLES = []
+FINAL_SUBTITLE = []
+
 # class for nonsub data
-class sub:
+class Subtitle:
     def __init__(self, pos, content):
         self.pos = pos
         self.content = content
@@ -24,59 +30,33 @@ class sub:
     def get_pos(self):
         return self.pos
 
-# list for storing data
-subtitles = []
-result_subtitles = []
+
 
 # translate function
 def translate(title_content):
     translator = Translator()
-    return translator.translate(title_content, src='en', dest='vi')
-
-# function for validating and make subtitle
-def make_vi_sub(subtitle):
-    pattern ='(\d{2}:\d{2}:\d{2},\d{3}) --> (\d{2}:\d{2}:\d{2},\d{3})'
-    numPattern = '\d+'
-    translator = Translator()
-    content = subtitle.get_content()
-    if content != "\n":
-        if re.match(pattern,content) or re.match(numPattern,content) :
-            return (subtitle.get_pos(),content)
-        else :
-            content = re.sub("\\n"," ",content)
-            try :
-                final_sub = pydeepl.translate(content, "vi", from_lang="en")
-                # final_sub = ts.bing(content , from_language='en', to_language='vi')
-                return (subtitle.get_pos(),final_sub+"\n")
-            except :
-                return (subtitle.get_pos(),content)     
-    else:
-        return (subtitle.get_pos(),"\n")
+    return (translator.translate(title_content, src='en', dest='vi')).text
 
 # get data from file 
-for num, line in enumerate(f,1):
-    sub1 = sub(num,line)
-    subtitles.append(sub1)
+SUBTITLES = [Subtitle(num, line)  for num, line in enumerate(f,1)]
 
-# function for sorting
-def myFunc(e):
-  return e['pos']
-
-# running function
-def run():
-    num_procs = 64 # the number of threads handled
-    pool = Pool(processes=num_procs)
-    for res in pool.imap_unordered(make_vi_sub, [nonsub for nonsub in subtitles]):
-        if res != None :
-            print(res[1])
-            result_subtitles.append({"pos":res[0],"content":res[1]})
-
-    result_subtitles.sort(key=myFunc)
-    for line in result_subtitles:
-        fw.write(line["content"])
-
-# main
+def translating(subtitle: Subtitle) -> None:
+    content = subtitle.content
+    if not re.match(TIME_PATTERN,content) and not re.match(NUMBER_PATTERN,content) and content != '\n':
+        data = {"pos":subtitle.pos,"content":f'{translate(subtitle.content)} \n'} if content != "Your Grace." else {"pos":subtitle.pos,"content":f'Thưa ngài. \n'}
+        print(data)
+        return data
+    elif content == '\n':
+        return {"pos":subtitle.pos,"content":"\n"}
+    else:
+        return {"pos":subtitle.pos,"content":content}
+        
 if __name__ == '__main__':
     start_time = time.time()
-    run()
+    num_proc = 20
+    FINAL_SUBTITLE = [data for data in Pool(processes=num_proc).imap_unordered(translating, [nonsub for nonsub in SUBTITLES])]    
+    FINAL_SUBTITLE.sort(key=lambda x: x['pos'])
+    for subtitle in FINAL_SUBTITLE:
+        fw.write(subtitle["content"])
+    
     print("\n--->  time execution %s s" % round(time.time() - start_time,2))
