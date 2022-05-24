@@ -1,0 +1,4 @@
+- Sửa lỗi cài đặt face_recognition:
+  - pip install cmake
+  - pip install wheel
+  - pip install dlib
